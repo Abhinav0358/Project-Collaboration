@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import "./Projects.css";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
-
+  const navigate = useNavigate();
   const handleAddProject = () => {
-    const newProject = {
-      id: Date.now(),
-      name: "New Project",
-      description: "Description here",
-      domain: "Web Development",
-      collaborators: "Alice, Bob",
-      admin: "Charlie",
-      image: null,
-    };
-    setProjects([...projects, newProject]);
+  navigate("/add-project"); 
   };
 
   // const handleImageUpload = (e, id) => {
