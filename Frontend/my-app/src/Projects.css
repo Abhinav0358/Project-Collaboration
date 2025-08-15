@@ -8,7 +8,6 @@ body {
   background-color: #1e1e1e;
 }
 
-
 .projects-grid {
   display: flex;
   gap: 20px;
@@ -30,9 +29,9 @@ body {
 }
 
 .image-upload img {
-  width: 100%;         /* image fills container width */
-  height: 100%;        /* image fills container height */
-  object-fit: contain; /* maintain aspect ratio and fit inside */
+  width: 100%;        
+  height: 100%;       
+  object-fit: contain;
 }
 
 .image-placeholder {
