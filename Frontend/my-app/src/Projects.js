@@ -17,16 +17,16 @@ export default function Projects() {
     setProjects([...projects, newProject]);
   };
 
-  const handleImageUpload = (e, id) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProjects((prev) =>
-        prev.map((p) =>
-          p.id === id ? { ...p, image: URL.createObjectURL(file) } : p
-        )
-      );
-    }
-  };
+  // const handleImageUpload = (e, id) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setProjects((prev) =>
+  //       prev.map((p) =>
+  //         p.id === id ? { ...p, image: URL.createObjectURL(file) } : p
+  //       )
+  //     );
+  //   }
+  // };
 
   return (
     <div className="projects-container">
@@ -40,16 +40,9 @@ export default function Projects() {
         {projects.map((project) => (
           <div className="project-card" key={project.id}>
             <label className="image-upload">
-              {project.image ? (
-                <img src={project.image} alt="Project" />
-              ) : (
+            
                 <div className="image-placeholder">Upload Image</div>
-              )}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleImageUpload(e, project.id)}
-              />
+             
             </label>
             <div className="project-info">
               <h3>{project.name}</h3>
