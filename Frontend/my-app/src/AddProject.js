@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddProject.css";
 import { useNavigate } from "react-router-dom";
 
@@ -6,14 +6,19 @@ export default function AddProject() {
   const [projectName, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [domain, setDomain] = useState("");
-  const [collaborators, setCollaborators] = useState("");
-  const [admin, setAdmin] = useState(""); // Add admin back
+  const [startDate, setStartDate] = useState("");
   const [deadline, setDeadline] = useState("");
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
 
+  // Set current date as default for start date
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setStartDate(today);
+  }, []);
+
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files;
     if (file) {
       setImage(URL.createObjectURL(file));
     }
@@ -27,8 +32,9 @@ export default function AddProject() {
       name: projectName || "Untitled Project",
       description: description || "No description provided",
       domain: domain || "General",
-      collaborators: collaborators || "None",
-      admin: admin || "Unknown", // Add admin back
+      collaborators: "Project Creator", // Default value for existing Projects.js
+      admin: "Project Creator", // Default value - creator is admin
+      startDate: startDate || new Date().toISOString().split('T')[0],
       deadline: deadline || "Not set",
       image: image,
     };
@@ -46,7 +52,7 @@ export default function AddProject() {
         <h2>Create New Project</h2>
         
         <form onSubmit={handleSubmit} className="add-project-form">
-          {/* Fixed Image Upload Section - Remove onClick handler */}
+          {/* Image Upload Section */}
           <div className="image-upload-section">
             <label className="image-upload">
               <div className="image-placeholder">
@@ -65,7 +71,7 @@ export default function AddProject() {
             </label>
           </div>
 
-          {/* Form Fields */}
+          {/* Form Fields - Only show what user needs to input */}
           <input
             type="text"
             placeholder="Project Name"
@@ -78,7 +84,7 @@ export default function AddProject() {
             placeholder="Project Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            rows="4"
+            rows="3"
           />
 
           <input
@@ -88,21 +94,19 @@ export default function AddProject() {
             onChange={(e) => setDomain(e.target.value)}
           />
 
-          <input
-            type="text"
-            placeholder="Collaborators (comma separated)"
-            value={collaborators}
-            onChange={(e) => setCollaborators(e.target.value)}
-          />
+          {/* Start Date */}
+          <div className="date-input-container">
+            <label htmlFor="startDate">Start Date:</label>
+            <input
+              id="startDate"
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="date-input"
+            />
+          </div>
 
-          <input
-            type="text"
-            placeholder="Admin Name"
-            value={admin}
-            onChange={(e) => setAdmin(e.target.value)}
-          />
-
-          {/* Date Picker for Deadline */}
+          {/* Deadline Date */}
           <div className="date-input-container">
             <label htmlFor="deadline">Tentative Deadline:</label>
             <input
