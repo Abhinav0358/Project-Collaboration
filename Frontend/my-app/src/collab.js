@@ -1,125 +1,416 @@
-import React, { useState } from "react";
-import "./Collab.css"; // Import external CSS
-
-const initialCollaborators = [
-  {
-    name: "Alice",
-    tasks: [
-      { name: "Design Mockup", deadline: "2025-08-20", completed: true },
-      { name: "API Integration", deadline: "2025-08-23", completed: false },
-    ],
-    score: 87,
-  },
-  {
-    name: "Bob",
-    tasks: [
-      { name: "Testing", deadline: "2025-08-21", completed: true },
-      { name: "Documentation", deadline: "2025-08-25", completed: false },
-    ],
-    score: 90,
-  },
-];
+import React, { useState, useEffect } from "react";
+import "./Collab.css";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function Collab() {
-  const [collaborators, setCollaborators] = useState(initialCollaborators);
-  const [projectDetails, setProjectDetails] = useState({
-    name: "",
-    desc: "",
-    started: "",
-    tentativeEnd: "",
-    plan: "",
-    resources: "",
-    notes: "",
-    problems: "",
-    learnings: "",
-  });
+  const { projectId } = useParams();
+  const navigate = useNavigate();
+  const [project, setProject] = useState(null);
+  const [collaborators, setCollaborators] = useState([]);
+  const [newTask, setNewTask] = useState({ title: "", deadline: "", assignedTo: "" });
+  const [showAddTask, setShowAddTask] = useState(false);
 
-  // Update projectDetail fields
-  const handleInputChange = (e) => {
-    setProjectDetails({ ...projectDetails, [e.target.name]: e.target.value });
+  useEffect(() => {
+    // CREATE SAMPLE PROJECT DATA FOR DEMONSTRATION
+    const sampleProjects = [
+      {
+        id: 1,
+        name: "E-Commerce Website",
+        description: "Modern e-commerce platform with React and Node.js backend",
+        domain: "Web Development",
+        collaborators: "Project Creator, Alice, Bob, Sarah",
+        admin: "Project Creator",
+        startDate: "2025-08-01",
+        deadline: "2025-09-15",
+        image: null
+      },
+      {
+        id: 2,
+        name: "Mobile App UI/UX",
+        description: "Design and prototype for fitness tracking mobile application",
+        domain: "UI/UX Design",
+        collaborators: "Project Creator, Designer Team",
+        admin: "Project Creator",
+        startDate: "2025-07-15",
+        deadline: "2025-08-30",
+        image: null
+      }
+    ];
+
+    // Load project data from localStorage or use sample data
+    let savedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+    
+    // If no projects exist, create sample projects
+    if (savedProjects.length === 0) {
+      localStorage.setItem('projects', JSON.stringify(sampleProjects));
+      savedProjects = sampleProjects;
+    }
+
+    const currentProject = savedProjects.find(p => p.id === parseInt(projectId)) || sampleProjects[0];
+    
+    if (currentProject) {
+      setProject(currentProject);
+      
+      // CREATE SAMPLE COLLABORATORS WITH REALISTIC DATA
+      const sampleCollaborators = [
+        {
+          id: 1,
+          name: "Project Creator",
+          role: "Admin",
+          avatar: "👨‍💼",
+          tasks: [
+            {
+              id: 1,
+              title: "Setup project repository and initial structure",
+              deadline: "2025-08-18",
+              completed: true,
+              createdAt: "2025-08-15T10:00:00.000Z"
+            },
+            {
+              id: 2,
+              title: "Define project requirements and scope",
+              deadline: "2025-08-20",
+              completed: true,
+              createdAt: "2025-08-15T11:00:00.000Z"
+            },
+            {
+              id: 3,
+              title: "Review and approve final designs",
+              deadline: "2025-08-25",
+              completed: false,
+              createdAt: "2025-08-16T09:00:00.000Z"
+            }
+          ],
+          score: 95
+        },
+        {
+          id: 2,
+          name: "Alice Johnson",
+          role: "Frontend Developer",
+          avatar: "👩‍💻",
+          tasks: [
+            {
+              id: 4,
+              title: "Create responsive navigation component",
+              deadline: "2025-08-22",
+              completed: true,
+              createdAt: "2025-08-16T14:00:00.000Z"
+            },
+            {
+              id: 5,
+              title: "Implement product catalog with search",
+              deadline: "2025-08-28",
+              completed: false,
+              createdAt: "2025-08-16T15:00:00.000Z"
+            },
+            {
+              id: 6,
+              title: "Add shopping cart functionality",
+              deadline: "2025-09-02",
+              completed: false,
+              createdAt: "2025-08-16T16:00:00.000Z"
+            }
+          ],
+          score: 88
+        },
+        {
+          id: 3,
+          name: "Bob Smith",
+          role: "Backend Developer",
+          avatar: "👨‍💻",
+          tasks: [
+            {
+              id: 7,
+              title: "Setup database schema and models",
+              deadline: "2025-08-24",
+              completed: true,
+              createdAt: "2025-08-16T08:00:00.000Z"
+            },
+            {
+              id: 8,
+              title: "Create user authentication API",
+              deadline: "2025-08-26",
+              completed: false,
+              createdAt: "2025-08-16T09:30:00.000Z"
+            },
+            {
+              id: 9,
+              title: "Implement payment processing",
+              deadline: "2025-09-05",
+              completed: false,
+              createdAt: "2025-08-16T10:30:00.000Z"
+            }
+          ],
+          score: 92
+        },
+        {
+          id: 4,
+          name: "Sarah Williams",
+          role: "UI/UX Designer",
+          avatar: "👩‍🎨",
+          tasks: [
+            {
+              id: 10,
+              title: "Create wireframes and user journey maps",
+              deadline: "2025-08-19",
+              completed: true,
+              createdAt: "2025-08-15T13:00:00.000Z"
+            },
+            {
+              id: 11,
+              title: "Design high-fidelity mockups",
+              deadline: "2025-08-23",
+              completed: true,
+              createdAt: "2025-08-16T11:00:00.000Z"
+            },
+            {
+              id: 12,
+              title: "Create design system and style guide",
+              deadline: "2025-08-27",
+              completed: false,
+              createdAt: "2025-08-16T12:00:00.000Z"
+            }
+          ],
+          score: 90
+        }
+      ];
+
+      setCollaborators(sampleCollaborators);
+    }
+  }, [projectId]);
+
+  const addTask = () => {
+    if (!newTask.title || !newTask.assignedTo) return;
+    
+    const task = {
+      id: Date.now(),
+      title: newTask.title,
+      deadline: newTask.deadline,
+      completed: false,
+      createdAt: new Date().toISOString()
+    };
+
+    setCollaborators(prev => 
+      prev.map(collab => 
+        collab.name === newTask.assignedTo 
+          ? { ...collab, tasks: [...collab.tasks, task] }
+          : collab
+      )
+    );
+
+    setNewTask({ title: "", deadline: "", assignedTo: "" });
+    setShowAddTask(false);
   };
 
-  // Mark task as completed for a collaborator
-  const markTaskCompleted = (ci, ti) => {
-    const updatedCollabs = [...collaborators];
-    updatedCollabs[ci].tasks[ti].completed = true;
-    setCollaborators(updatedCollabs);
+  const toggleTaskCompletion = (collabId, taskId) => {
+    setCollaborators(prev =>
+      prev.map(collab =>
+        collab.id === collabId
+          ? {
+              ...collab,
+              tasks: collab.tasks.map(task =>
+                task.id === taskId
+                  ? { ...task, completed: !task.completed }
+                  : task
+              )
+            }
+          : collab
+      )
+    );
   };
+
+  const calculateProgress = (tasks) => {
+    if (!tasks.length) return 0;
+    const completed = tasks.filter(task => task.completed).length;
+    return Math.round((completed / tasks.length) * 100);
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "No deadline";
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const getTaskStatusColor = (deadline, completed) => {
+    if (completed) return '#3fa96a';
+    const today = new Date();
+    const taskDeadline = new Date(deadline);
+    const daysUntilDeadline = Math.ceil((taskDeadline - today) / (1000 * 60 * 60 * 24));
+    
+    if (daysUntilDeadline < 0) return '#ff5e32'; // Overdue
+    if (daysUntilDeadline <= 3) return '#ff8a73'; // Due soon
+    return '#d4a838'; // Normal
+  };
+
+  // Show loading state briefly for better UX
+  if (!project) {
+    return (
+      <div className="collab-container">
+        <div className="collab-header">
+          <button onClick={() => navigate('/projects')} className="back-btn">
+            ← Back to Projects
+          </button>
+          <h1 className="project-title">Loading...</h1>
+        </div>
+      </div>
+    );
+  }
+
+  const overallProgress = collaborators.length > 0 
+    ? Math.round(collaborators.reduce((acc, collab) => acc + calculateProgress(collab.tasks), 0) / collaborators.length)
+    : 0;
+
+  const totalTasks = collaborators.reduce((acc, collab) => acc + collab.tasks.length, 0);
+  const completedTasks = collaborators.reduce((acc, collab) => acc + collab.tasks.filter(t => t.completed).length, 0);
 
   return (
-    <div className="crazy-container">
-      <h1 className="crazy-heading">🚀 Collab Project Dashboard 🚀</h1>
-      <div className="crazy-access-msg">
-        Page accessible only to collaborators!
+    <div className="collab-container">
+      <div className="collab-header">
+        <button onClick={() => navigate('/projects')} className="back-btn">
+          ← Back to Projects
+        </button>
+        <h1 className="project-title">{project.name}</h1>
+        <p className="project-description">{project.description}</p>
+        <div style={{marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap'}}>
+          <div style={{textAlign: 'center'}}>
+            <div style={{color: '#d4a838', fontSize: '2rem', fontWeight: 'bold'}}>{overallProgress}%</div>
+            <div style={{color: '#e5e5e5', fontSize: '0.9rem'}}>Overall Progress</div>
+          </div>
+          <div style={{textAlign: 'center'}}>
+            <div style={{color: '#ff8a73', fontSize: '2rem', fontWeight: 'bold'}}>{completedTasks}/{totalTasks}</div>
+            <div style={{color: '#e5e5e5', fontSize: '0.9rem'}}>Tasks Completed</div>
+          </div>
+        </div>
       </div>
-      <div className="crazy-admin">Admin Access</div>
 
-      <div className="crazy-form-section">
-        <input className="crazy-textbox" name="name" value={projectDetails.name}
-          onChange={handleInputChange} placeholder="Project Name" />
-        <textarea className="crazy-textbox" name="desc" value={projectDetails.desc}
-          onChange={handleInputChange} placeholder="Description" rows={2} />
-        <input className="crazy-textbox" type="date" name="started"
-          value={projectDetails.started} onChange={handleInputChange} placeholder="Started" />
-        <input className="crazy-textbox" type="date" name="tentativeEnd"
-          value={projectDetails.tentativeEnd} onChange={handleInputChange}
-          placeholder="Tentative End" />
-      </div>
-
-      <h2 className="crazy-section-title">Collaborators & Tasks</h2>
-      {collaborators.map((collab, ci) => {
-        const completedTasks = collab.tasks.filter(t => t.completed).length;
-        const totalTasks = collab.tasks.length;
-        const percentComplete = Math.round((completedTasks / totalTasks) * 100);
-
-        return (
-          <div className="crazy-collab-card" key={ci}>
-            <h3>{collab.name}</h3>
-            <div className="crazy-task-list">
-              {collab.tasks.map((task, ti) => (
-                <div className={`crazy-task-item ${task.completed ? "crazy-complete" : "crazy-pending"}`} key={ti}>
-                  <span className="crazy-task-title">{task.name}</span>
-                  <span className="crazy-task-deadline">🗓 {task.deadline}</span>
-                  <span className="crazy-task-status">
-                    {task.completed ? "✔️ Completed" : "⏳ Pending"}
-                  </span>
-                  {!task.completed && (
-                    <button className="crazy-action-btn"
-                      onClick={() => markTaskCompleted(ci, ti)}>
-                      Mark Completed
-                    </button>
-                  )}
-                </div>
-              ))}
+      <div className="collab-content">
+        {/* Project Info Card */}
+        <div className="project-info-card">
+          <h3>📋 Project Overview</h3>
+          <div className="project-details">
+            <div className="detail-item">
+              <span className="label">Domain:</span>
+              <span className="value">{project.domain}</span>
             </div>
-            <div className="crazy-score">
-              <span>Completed:</span>
-              <span className="crazy-percent">{percentComplete}%</span>
-              <span>Cumulative Score:</span>
-              <span className="crazy-score-value">{collab.score}</span>
+            <div className="detail-item">
+              <span className="label">Start Date:</span>
+              <span className="value">{formatDate(project.startDate)}</span>
+            </div>
+            <div className="detail-item">
+              <span className="label">Deadline:</span>
+              <span className="value">{formatDate(project.deadline)}</span>
+            </div>
+            <div className="detail-item">
+              <span className="label">Admin:</span>
+              <span className="value">{project.admin}</span>
             </div>
           </div>
-        );
-      })}
+        </div>
 
-      <div className="crazy-form-section">
-        <textarea className="crazy-textbox" name="plan" value={projectDetails.plan}
-          onChange={handleInputChange} placeholder="Plan of Action" rows={2} />
-        <textarea className="crazy-textbox" name="resources" value={projectDetails.resources}
-          onChange={handleInputChange} placeholder="Resources" rows={2} />
-        <textarea className="crazy-textbox" name="notes" value={projectDetails.notes}
-          onChange={handleInputChange} placeholder="Notes & Reflections" rows={2} />
-        <textarea className="crazy-textbox" name="problems" value={projectDetails.problems}
-          onChange={handleInputChange} placeholder="Problems" rows={2} />
-        <textarea className="crazy-textbox" name="learnings" value={projectDetails.learnings}
-          onChange={handleInputChange} placeholder="Learnings" rows={2} />
-      </div>
+        {/* Collaborators Section */}
+        <div className="collaborators-section">
+          <div className="section-header">
+            <h3>👥 Team Members ({collaborators.length})</h3>
+            <button 
+              onClick={() => setShowAddTask(!showAddTask)}
+              className="add-task-btn"
+            >
+              {showAddTask ? '✕ Cancel' : '+ Add Task'}
+            </button>
+          </div>
 
-      <div className="crazy-admin-actions">
-        <button className="crazy-action-btn">Save / Update</button>
-        <button className="crazy-action-btn crazy-del-btn">Delete Project</button>
-        <button className="crazy-action-btn crazy-admin-btn">Allot Admin Access</button>
-        <button className="crazy-action-btn crazy-complete-btn">Mark Completed</button>
+          {/* Add Task Form */}
+          {showAddTask && (
+            <div className="add-task-form">
+              <input
+                type="text"
+                placeholder="Task title"
+                value={newTask.title}
+                onChange={(e) => setNewTask({...newTask, title: e.target.value})}
+                className="task-input"
+              />
+              <input
+                type="date"
+                value={newTask.deadline}
+                onChange={(e) => setNewTask({...newTask, deadline: e.target.value})}
+                className="task-input"
+              />
+              <select
+                value={newTask.assignedTo}
+                onChange={(e) => setNewTask({...newTask, assignedTo: e.target.value})}
+                className="task-select"
+              >
+                <option value="">Assign to...</option>
+                {collaborators.map(collab => (
+                  <option key={collab.id} value={collab.name}>{collab.name}</option>
+                ))}
+              </select>
+              <div className="task-form-actions">
+                <button onClick={addTask} className="save-task-btn">Save Task</button>
+                <button onClick={() => setShowAddTask(false)} className="cancel-task-btn">Cancel</button>
+              </div>
+            </div>
+          )}
+
+          {/* Collaborator Cards */}
+          <div className="collaborators-grid">
+            {collaborators.map(collab => (
+              <div key={collab.id} className="collaborator-card">
+                <div className="collab-header">
+                  <div className="collab-avatar">{collab.avatar}</div>
+                  <div className="collab-info">
+                    <h4 className="collab-name">{collab.name}</h4>
+                    <span className="collab-role">{collab.role}</span>
+                  </div>
+                  <div className="collab-progress">
+                    <span className="progress-text">{calculateProgress(collab.tasks)}%</span>
+                  </div>
+                </div>
+
+                <div className="tasks-section">
+                  <h5>📝 Tasks ({collab.tasks?.length || 0})</h5>
+                  {collab.tasks?.length > 0 ? (
+                    <div className="tasks-list">
+                      {collab.tasks.map(task => (
+                        <div 
+                          key={task.id} 
+                          className={`task-item ${task.completed ? 'completed' : 'pending'}`}
+                          style={{
+                            borderLeftColor: getTaskStatusColor(task.deadline, task.completed),
+                            borderLeftWidth: '4px'
+                          }}
+                        >
+                          <div className="task-content">
+                            <div className="task-title">{task.title}</div>
+                            <div className="task-deadline">
+                              📅 {formatDate(task.deadline)}
+                              {task.completed && <span style={{color: '#3fa96a', marginLeft: '0.5rem'}}>✓ Done</span>}
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => toggleTaskCompletion(collab.id, task.id)}
+                            className={`task-toggle ${task.completed ? 'completed' : 'pending'}`}
+                            title={task.completed ? 'Mark as pending' : 'Mark as completed'}
+                          >
+                            {task.completed ? '✓' : '○'}
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="no-tasks">
+                      <div style={{fontSize: '2rem', marginBottom: '0.5rem'}}>📋</div>
+                      <div>No tasks assigned yet</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
