@@ -7,7 +7,8 @@ export default function AddProject() {
   const [description, setDescription] = useState("");
   const [domain, setDomain] = useState("");
   const [collaborators, setCollaborators] = useState("");
-  const [admin, setAdmin] = useState("");
+  const [admin, setAdmin] = useState(""); // Add admin back
+  const [deadline, setDeadline] = useState("");
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
 
@@ -21,28 +22,22 @@ export default function AddProject() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Create project object
     const newProject = {
       id: Date.now(),
       name: projectName || "Untitled Project",
       description: description || "No description provided",
       domain: domain || "General",
       collaborators: collaborators || "None",
-      admin: admin || "Unknown",
+      admin: admin || "Unknown", // Add admin back
+      deadline: deadline || "Not set",
       image: image,
     };
 
-    // Store project in localStorage (temporary solution)
     const existingProjects = JSON.parse(localStorage.getItem('projects') || '[]');
     existingProjects.push(newProject);
     localStorage.setItem('projects', JSON.stringify(existingProjects));
 
-    // Navigate back to projects page
     navigate('/projects');
-  };
-
-  const triggerFileInput = () => {
-    document.getElementById("fileInput").click();
   };
 
   return (
@@ -51,10 +46,10 @@ export default function AddProject() {
         <h2>Create New Project</h2>
         
         <form onSubmit={handleSubmit} className="add-project-form">
-          {/* Image Upload Section */}
+          {/* Fixed Image Upload Section - Remove onClick handler */}
           <div className="image-upload-section">
             <label className="image-upload">
-              <div className="image-placeholder" onClick={triggerFileInput}>
+              <div className="image-placeholder">
                 {image ? (
                   <img src={image} alt="Project preview" />
                 ) : (
@@ -62,7 +57,6 @@ export default function AddProject() {
                 )}
               </div>
               <input
-                id="fileInput"
                 accept="image/*"
                 type="file"
                 style={{ display: "none" }}
@@ -107,6 +101,18 @@ export default function AddProject() {
             value={admin}
             onChange={(e) => setAdmin(e.target.value)}
           />
+
+          {/* Date Picker for Deadline */}
+          <div className="date-input-container">
+            <label htmlFor="deadline">Tentative Deadline:</label>
+            <input
+              id="deadline"
+              type="date"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              className="date-input"
+            />
+          </div>
 
           {/* Action Buttons */}
           <div className="form-actions">

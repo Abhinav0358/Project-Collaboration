@@ -82,6 +82,39 @@
   font-family: inherit;
 }
 
+/* Date Input Styling */
+.date-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.date-input-container label {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.date-input {
+  padding: 0.8rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #333;
+  color: white;
+  outline: none;
+  font-size: 1rem;
+}
+
+.date-input:focus {
+  border-color: #4cafef;
+  box-shadow: 0 0 4px rgba(76, 175, 239, 0.3);
+}
+
+/* Custom date input styling for better visibility */
+.date-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
 .form-actions {
   display: flex;
   gap: 1rem;
