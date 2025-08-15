@@ -1,18 +1,28 @@
-.register-container {
+/* Register Container with Glow & Float */
+.register-container { 
   width: 350px;
   margin: 100px auto;
-  background: white;
+  background: rgba(42, 42, 42, 0.95);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(255, 183, 102, 0.3);
   text-align: center;
+  animation: floatCard 4s ease-in-out infinite;
+  backdrop-filter: blur(8px);
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 .register-container h2 {
   margin-bottom: 1.5rem;
-  color: #4f46e5;
+  color: #f43a09; /* Brightly Orange */
+  text-shadow: 0 0 10px rgba(244, 58, 9, 0.8);
 }
 
+/* Inputs with Glow */
 .register-form {
   display: flex;
   flex-direction: column;
@@ -21,40 +31,60 @@
 .register-form input {
   margin-bottom: 1rem;
   padding: 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid #ffb766; /* Grandpa Orange */
   border-radius: 6px;
   outline: none;
   font-size: 1rem;
+  background: #1e1e1e;
+  color: white;
+  transition: all 0.3s ease;
 }
 
 .register-form input:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 4px rgba(79, 70, 229, 0.3);
+  border-color: #68d388; /* Live Green */
+  box-shadow: 0 0 10px rgba(104, 211, 136, 0.6);
 }
 
+/* Animated Button */
 .register-form button {
-  background: #4f46e5;
-  color: white;
+  background: #68d388; /* Live Green */
+  color: #1e1e1e;
   padding: 0.8rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: bold;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px #68d388; }
+  50% { box-shadow: 0 0 20px #54b972; }
 }
 
 .register-form button:hover {
-  background: #3b36d1;
+  background: #54b972;
+  transform: scale(1.05);
 }
 
+.register-form button:active {
+  transform: scale(0.92);
+}
+
+/* Login Link Glow */
 .login-link {
   margin-top: 1rem;
 }
 
 .login-link a {
-  color: #4f46e5;
+  color: #ffb766; /* Grandpa Orange */
   text-decoration: none;
+  transition: text-shadow 0.3s ease, color 0.3s ease;
 }
 
 .login-link a:hover {
-  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(255, 183, 102, 0.8);
+  color: #f43a09; /* Brightly Orange */
 }

@@ -4,7 +4,7 @@ body {
 
 .projects-container {
   padding: 20px;
-  color: white;
+  color: #ffffff;
   background-color: #1e1e1e;
 }
 
@@ -46,13 +46,15 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: #4cafef;
+  color: #f43a09; /* Brightly Orange */
   font-weight: bold;
-  border: 2px dashed #4cafef;
+  border: 2px dashed #f43a09; /* Brightly Orange */
 }
 
 .add-card:hover {
   background-color: #333;
+  color: #ffb766; /* Grandpa Orange */
+  border-color: #ffb766;
 }
 
 .empty-msg {
@@ -62,8 +64,8 @@ body {
 }
 
 .view-btn {
-  background-color: #4cafef;
-  color: white;
+  background-color: #68d388; /* Live Green */
+  color: #1e1e1e;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
@@ -71,5 +73,5 @@ body {
 }
 
 .view-btn:hover {
-  background-color: #3a9edc;
+  background-color: #54b972; /* Darker Live Green */
 }
