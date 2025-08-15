@@ -1,8 +1,13 @@
+body {
+  background-color: #1e1e1e;
+}
+
 .projects-container {
   padding: 20px;
   color: white;
   background-color: #1e1e1e;
 }
+
 
 .projects-grid {
   display: flex;
@@ -10,7 +15,8 @@
   flex-wrap: wrap;
 }
 
-.project-card, .add-card {
+.project-card,
+.add-card {
   background-color: #2a2a2a;
   border-radius: 8px;
   padding: 15px;
@@ -21,6 +27,12 @@
 .image-upload {
   display: block;
   margin-bottom: 10px;
+}
+
+.image-upload img {
+  width: 100%;         /* image fills container width */
+  height: 100%;        /* image fills container height */
+  object-fit: contain; /* maintain aspect ratio and fit inside */
 }
 
 .image-placeholder {
