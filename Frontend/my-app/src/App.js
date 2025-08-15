@@ -4,6 +4,7 @@ import Projects from "./Projects";
 import Login from "./Login";
 import Register from "./Register";
 import AddProject from "./AddProject";
+import Collab from "./collab";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/add-project" element={<AddProject />} />
         <Route path="/" element={<Login />} />
+         <Route path="/view" element={<Collab />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>

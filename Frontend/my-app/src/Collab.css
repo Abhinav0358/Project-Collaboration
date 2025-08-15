@@ -1,0 +1,183 @@
+.crazy-container {
+  background: linear-gradient(120deg, #111 60%, #0ff 100%);
+  color: #ff3af2;
+  border: 9px dashed #0ff;
+  padding: 36px;
+  border-radius: 42px;
+  box-shadow: 0 0 30px 15px #ff3af2, 0 0 18px 3px #0ff inset;
+  font-family: "Comic Sans MS", "Cabin Sketch", cursive, fantasy;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.crazy-heading {
+  font-size: 2.7rem;
+  color: #ffe600;
+  text-shadow: 2px 2px 12px #0ff, 0 0 12px #ff3af2;
+  padding-bottom: 24px;
+  letter-spacing: 4px;
+}
+
+.crazy-access-msg {
+  background: #333;
+  color: #0ff;
+  border-left: 6px solid #ffe600;
+  padding: 8px 18px;
+  margin-bottom: 22px;
+  font-size: 1.1em;
+  border-radius: 0 24px 24px 0;
+}
+
+.crazy-admin {
+  font-size: 1.2em;
+  font-style: italic;
+  margin-bottom: 24px;
+  background: #ffe600;
+  color: #111;
+  padding: 7px 24px;
+  border-radius: 22px;
+  box-shadow: 0 0 7px #ff3af2;
+}
+
+.crazy-form-section {
+  margin-bottom: 32px;
+}
+
+.crazy-textbox {
+  width: 100%;
+  min-height: 30px;
+  border-radius: 20px;
+  border: 5px double #ff3af2;
+  padding: 13px;
+  background: #fffbe6;
+  color: #111;
+  font-size: 1.08em;
+  font-family: "Comic Sans MS", cursive;
+  margin-bottom: 14px;
+  outline: none;
+  box-shadow: 0 0 18px #0ff inset;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+.crazy-textbox:focus {
+  border: 5px solid #ffe600;
+  box-shadow: 0 0 18px #ff3af2 inset;
+}
+
+.crazy-section-title {
+  color: #ffe600;
+  margin-bottom: 16px;
+  font-size: 1.7em;
+}
+
+.crazy-collab-card {
+  border: 5px solid #0ff;
+  background: linear-gradient(110deg, #fffbe6 80%, #ff3af2 100%);
+  color: #ff006e;
+  margin-bottom: 28px;
+  border-radius: 24px;
+  padding: 18px 12px;
+  box-shadow: 0 0 18px 2px #ffe600;
+  font-family: inherit;
+}
+.crazy-collab-card h3 {
+  margin-bottom: 8px;
+  color: #111;
+  font-size: 1.2em;
+  font-family: 'Cabin Sketch',cursive;
+}
+
+.crazy-task-list {
+  margin-bottom: 16px;
+}
+.crazy-task-item {
+  padding: 10px;
+  margin-bottom: 7px;
+  border-radius: 16px;
+  display: flex;
+  gap: 23px;
+  align-items: center;
+  background: rgba(17,0,127,0.055);
+  border: 2px dotted #ffe600;
+  font-size: 1.08em;
+}
+
+.crazy-complete {
+  background: #c3ffcd;
+  color: #0c7b37;
+  border-color: #0ff;
+}
+.crazy-pending {
+  background: #ffe1e1;
+  color: #9c0043;
+  border-color: #ff3af2;
+}
+.crazy-task-title {
+  font-weight: bold;
+}
+.crazy-task-deadline {
+  color: #ff3af2;
+}
+.crazy-task-status {
+  padding: 2px 13px;
+  font-size: 1em;
+}
+
+.crazy-score {
+  margin-top: 6px;
+  font-size: 1.13em;
+  font-family: "Cabin Sketch",cursive;
+}
+.crazy-percent {
+  color: #0ff;
+  font-weight: bold;
+  margin-left: 6px;
+  margin-right: 24px;
+}
+.crazy-score-value {
+  color: #ffe600;
+  font-weight: bold;
+  margin-left: 7px;
+}
+
+.crazy-admin-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.crazy-action-btn {
+  background: linear-gradient(135deg, #ff3af2 70%, #0ff 200%);
+  color: #fff;
+  font-size: 1.18em;
+  border: 3px solid #ffe600;
+  padding: 13px 26px;
+  border-radius: 20px;
+  font-family: "Cabin Sketch", cursive;
+  cursor: pointer;
+  box-shadow: 0 0 12px #ffe600, 0 0 18px #ff3af2 inset;
+  margin-bottom: 8px;
+  transition: transform 0.18s;
+}
+
+.crazy-del-btn {
+  background: linear-gradient(110deg, #ff006e 60%, #ffe600 100%);
+  color: #fff;
+  border: 3px solid #ff3af2;
+}
+
+.crazy-admin-btn {
+  background: linear-gradient(110deg, #fffbe6 40%, #ffe600 100%);
+  color: #ff006e;
+  border: 3px solid #ff3af2;
+}
+
+.crazy-complete-btn {
+  background: linear-gradient(110deg, #0ff 60%, #ffe600 100%);
+  color: #111;
+  border: 3px solid #ff3af2;
+}
+
+.crazy-action-btn:hover {
+  transform: scale(1.12) rotate(-2deg);
+}
