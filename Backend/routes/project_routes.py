@@ -27,7 +27,7 @@ def create_project():
         "description": description,
         "domain": domain,
         "start_date": start_date,
-        "end_date": end_date,
+        "end_date": end_date,  
         "admin_id": admin_id,
         "collaborator_ids": []  # list of ObjectId
     }

@@ -15,8 +15,8 @@ def create_app():
     CORS(app)  # Restrict origins in prod
     JWTManager(app)
 
-    client = MongoClient(app.config["MONGO_URI"])
-    db = client.get_database()  # default DB from URI
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["Project_management_app"]  # default DB from URI
 
     # Basic indexes (safe to re-run)
     db.users.create_index("email", unique=True)
